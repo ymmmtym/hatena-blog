@@ -1,7 +1,7 @@
 ---
 Title: LinuxにDockerをInstallするAnsible-Galaxy
 Date: 2020-07-29T20:53:36+09:00
-URL: https://ymmmtym.hateblo.jp/entry/2020/07/29/205336
+URL: https://ymmmtym.hateblo.jp/entry/2020/07/29/Linux%E3%81%ABDocker%E3%82%92Install%E3%81%99%E3%82%8BAnsible-Galaxy
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613606657488
 ---
 
