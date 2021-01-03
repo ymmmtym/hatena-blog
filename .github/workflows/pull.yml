@@ -2,13 +2,20 @@ name: Pull from hatena blog
 
 on:
   schedule:
-    - cron:  '* * * * *'
+    - cron: '*/5 * * * *'
+  push:
+    branches-ignore:
+      - main
 
 jobs:
 
   pull:
     name: Pull
     runs-on: ubuntu-latest
+    env:
+      BSY: ${{ secrets.BSY }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      TZ: "Asia/Tokyo"
     steps:
 
     - name: Set up Go 1.13
@@ -23,16 +30,12 @@ jobs:
     - run: git fetch origin main
 
     - name: Setup blogsync
-      env:
-        BSY: ${{ secrets.BSY }}
       run: |
         go get github.com/motemen/blogsync        
         echo -e ${BSY} > blogsync.yaml
 
     - name: Pull
-      env:
-        DOMAIN: ${{ secrets.DOMAIN }}
-      run: rm -fr entries && ~/go/bin/blogsync pull ${DOMAIN}
+      run: ~/go/bin/blogsync pull ${DOMAIN}
 
     - name: Run git status
       id: status

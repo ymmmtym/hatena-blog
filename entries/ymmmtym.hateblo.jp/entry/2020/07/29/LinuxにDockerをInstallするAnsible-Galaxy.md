@@ -19,8 +19,8 @@ OSSで素晴らしいansible-galaxyを見つけましたので、紹介したい
 
 ## 使用するansible-galaxy
 
-[Ansible Galaxy](https://galaxy.ansible.com/geerlingguy/docker)
-[geerlingguy/ansible-role-docker: Ansible Role - Docker](https://github.com/geerlingguy/ansible-role-docker)
+- [Ansible Galaxy](https://galaxy.ansible.com/geerlingguy/docker)
+- [geerlingguy/ansible-role-docker: Ansible Role - Docker](https://github.com/geerlingguy/ansible-role-docker)
 
 ## Ansible Playbookを書いてみる
 

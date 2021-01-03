@@ -10,6 +10,10 @@ jobs:
   push:
     name: push
     runs-on: ubuntu-latest
+    env:
+      BSY: ${{ secrets.BSY }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      TZ: "Asia/Tokyo"
     steps:
 
     - name: Set up Go 1.13
@@ -24,16 +28,13 @@ jobs:
     - run: git fetch origin main
 
     - name: Setup blogsync
-      env:
-        BSY: ${{ secrets.BSY }}
       run: |
         go get github.com/motemen/blogsync        
         echo -e ${BSY} > blogsync.yaml
 
     - name: push
-      env:
-        DOMAIN: ${{ secrets.DOMAIN }}
       run: |
+        git config --global core.quotepath false
         git diff origin/main --name-only \
         | grep entries/${DOMAIN}/entry \
         | xargs -t -n1 ~/go/bin/blogsync push
