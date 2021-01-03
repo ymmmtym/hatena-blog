@@ -17,10 +17,10 @@ LinuxにDockerをインストールするたびに、
 毎回インストールするのは手間なので、自動化したいと思っていた矢先、
 OSSで素晴らしいansible-galaxyを見つけましたので、紹介したいと思います。
 
-**使用するansible-galaxy**
+## 使用するansible-galaxy
 
-<https://galaxy.ansible.com/geerlingguy/docker>
-<https://github.com/geerlingguy/ansible-role-docker>
+[Ansible Galaxy](https://galaxy.ansible.com/geerlingguy/docker)
+[geerlingguy/ansible-role-docker: Ansible Role - Docker](https://github.com/geerlingguy/ansible-role-docker)
 
 ## Ansible Playbookを書いてみる
 
