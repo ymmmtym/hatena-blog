@@ -1,11 +1,15 @@
 name: Pull from hatena blog
 
 on:
+  workflow_run:
+    workflows: ["Push to hatena blog"]
+    branches-ignore: 
+      - main
+    types: 
+      - completed
+      - requested
   schedule:
     - cron: '*/5 * * * *'
-  push:
-    branches-ignore:
-      - main
 
 jobs:
 
@@ -26,8 +30,8 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-
-    - run: git fetch origin main
+      with:
+        ref: main
 
     - name: Setup blogsync
       run: |

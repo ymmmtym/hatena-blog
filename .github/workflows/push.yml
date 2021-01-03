@@ -1,4 +1,4 @@
-name: push to hatena blog
+name: Push to hatena blog
 
 on: 
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
 
   push:
-    name: push
+    name: Push
     runs-on: ubuntu-latest
     env:
       BSY: ${{ secrets.BSY }}
