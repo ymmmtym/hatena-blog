@@ -8,7 +8,13 @@ Draft: true
 
 # push-to-hatenablogを使いやすくしてみた
 
-markdownで書くことが多いので、push-to-hatenablogを導入してみました。
+markdownで書くことが多いので、**push-to-hatenablog**を導入してみました。
+
+以前までは、記事を投稿する時は既存のmarkdownからコピペして整形していましたが、  
+導入後は、markdownがそのまま記事として投稿できるので、とても満足しています。
+
+さらに GitHub Actions で投稿する際の手間を出来る限り省くことで、  
+「メモを取る」ことから「記事を書く」までの心理的ハードルを下げることが出来ました。
 
 普段はQiitaばかりで、はてなブログには記事を全く投稿していませんが、  
 push-to-hatenablogが結構使いやすかったので、これを機に投稿を増やしていきたいと思います。
@@ -27,6 +33,12 @@ push-to-hatenablogが結構使いやすかったので、これを機に投稿�
 [push-to-hatenablogを使い，はてなブログへの投稿記事をGitHubで管理したら最高だった！ - tanabebe blog](https://tanabebe.hatenablog.com/entry/2020/07/06/080000)
 
 `README.md`の**セットアップ**まで完了したら、push-to-hatenablogを使いやすくするためにリポジトリのソースコードを修正していきます。
+
+## どのように使いやすくするのか
+
+
+
+- main(master)ブランチはバックアップ/修正専用
 
 ## 最後に
 
