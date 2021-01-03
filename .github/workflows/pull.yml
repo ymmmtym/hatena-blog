@@ -2,7 +2,7 @@ name: Pull from hatena blog
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron:  '* * * * *'
 
 jobs:
 
