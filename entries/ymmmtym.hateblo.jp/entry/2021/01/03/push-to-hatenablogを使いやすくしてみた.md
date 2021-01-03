@@ -8,6 +8,26 @@ Draft: true
 
 # push-to-hatenablogを使いやすくしてみた
 
-普段markdownで書くことが多いので、push-to-hatenablogを導入してみました。
-はてなブログには記事を全く投稿していませんが、
+markdownで書くことが多いので、push-to-hatenablogを導入してみました。
+
+普段はQiitaばかりで、はてなブログには記事を全く投稿していませんが、  
 push-to-hatenablogが結構使いやすかったので、これを機に投稿を増やしていきたいと思います。
+
+## push-to-hatenablogとは
+
+「はてなブログ記事の作成/取得/更新が、CLIで出来るようになります。」
+
+導入方法は、以下のGitHubリポジトリの`README.md`に記載されています。  
+そこまで難しくなく、30分もあればGitHubとはてなブログの同期が出来ると思います。
+
+[mm0202/push-to-hatenablog: GitHubとはてなブログの連携用環境。GitHubに記事の編集内容をプッシュするとはてなブログの記事も更新されます。](https://github.com/mm0202/push-to-hatenablog)
+
+以下のブログにも詳しい説明が書いてあるので、詳細はこちらを確認してください。
+
+[push-to-hatenablogを使い，はてなブログへの投稿記事をGitHubで管理したら最高だった！ - tanabebe blog](https://tanabebe.hatenablog.com/entry/2020/07/06/080000)
+
+`README.md`の**セットアップ**まで完了したら、push-to-hatenablogを使いやすくするためにリポジトリのソースコードを修正していきます。
+
+## 最後に
+
+[gimonfu で、はてなブログの記事を GitHub と同期する - Qiita](https://qiita.com/basd4g/items/1a38857f6bafb20f065d)
