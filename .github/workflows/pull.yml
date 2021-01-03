@@ -1,0 +1,60 @@
+name: Pull from hatena blog
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+
+  pull:
+    name: Pull
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - run: git fetch origin main
+
+    - name: Setup blogsync
+      env:
+        BSY: ${{ secrets.BSY }}
+      run: |
+        go get github.com/motemen/blogsync        
+        echo -e ${BSY} > blogsync.yaml
+
+    - name: Pull
+      env:
+        DOMAIN: ${{ secrets.DOMAIN }}
+      run: rm -fr entries && ~/go/bin/blogsync pull ${DOMAIN}
+
+    - name: Run git status
+      id: status
+      run: echo "::set-output name=status::$(git status -s)"
+
+    - name: Add and commit files
+      run: |
+        git add .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Update entries at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+      if: ${{ steps.status.outputs.status }}
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
+      if: ${{ steps.status.outputs.status }}
+
+    # - name: notify to slack
+    #   uses: mm0202/action_slack-notify@master
+    #   if: always()
+    #   env:
+    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
