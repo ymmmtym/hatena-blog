@@ -33,6 +33,9 @@ jobs:
       with:
         ref: main
 
+    - name: Debug
+      run: git log | head -1
+
     - name: Setup blogsync
       run: |
         go get github.com/motemen/blogsync        
