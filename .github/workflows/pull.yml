@@ -33,16 +33,13 @@ jobs:
       with:
         ref: main
 
-    - name: Debug
-      run: git log | head -1
-
     - name: Setup blogsync
       run: |
         go get github.com/motemen/blogsync        
         echo -e ${BSY} > blogsync.yaml
 
     - name: Pull
-      run: ~/go/bin/blogsync pull ${DOMAIN}
+      run: rm -fr entries && ~/go/bin/blogsync pull ${DOMAIN}
 
     - name: Run git status
       id: status
