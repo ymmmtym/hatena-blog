@@ -38,6 +38,7 @@ push-to-hatenablogが結構使いやすかったので、これを機に投稿�
 
 - main(master)ブランチはバックアップ専用
 - entries/*ブランチは修正用
+- 記事の新規投稿はCLIで行う
 
 ## push.ymlの修正
 
