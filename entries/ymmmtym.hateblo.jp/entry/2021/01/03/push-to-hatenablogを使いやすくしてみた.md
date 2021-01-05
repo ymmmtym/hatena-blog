@@ -6,6 +6,8 @@ EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/2600661
 Draft: true
 ---
 
+[:contents]
+
 markdownで書くことが多いので、**push-to-hatenablog**を導入してみました。
 
 以前までは、記事を投稿する時は既存のmarkdownからコピペして整形していましたが、  
@@ -46,6 +48,6 @@ Pullする前に`entries`ディレクトリを削除する必要がありまし�
 
 ## 管理方法まとめ
 
-## 最後に
+## さいごに
 
 [gimonfu で、はてなブログの記事を GitHub と同期する - Qiita](https://qiita.com/basd4g/items/1a38857f6bafb20f065d)
