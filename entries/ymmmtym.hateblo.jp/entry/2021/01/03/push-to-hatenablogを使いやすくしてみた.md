@@ -6,8 +6,6 @@ EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/2600661
 Draft: true
 ---
 
-# push-to-hatenablogを使いやすくしてみた
-
 markdownで書くことが多いので、**push-to-hatenablog**を導入してみました。
 
 以前までは、記事を投稿する時は既存のmarkdownからコピペして整形していましたが、  
