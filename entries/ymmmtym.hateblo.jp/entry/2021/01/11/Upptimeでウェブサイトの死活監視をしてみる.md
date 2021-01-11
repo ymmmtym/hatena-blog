@@ -1,5 +1,7 @@
 ---
 Title: Upptimeでウェブサイトの死活監視をしてみる
+Category:
+- IT
 Date: 2021-01-11T20:25:26+09:00
 URL: https://ymmmtym.hateblo.jp/entry/2021/01/11/Upptime%E3%81%A7%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%AD%BB%E6%B4%BB%E7%9B%A3%E8%A6%96%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613674493873

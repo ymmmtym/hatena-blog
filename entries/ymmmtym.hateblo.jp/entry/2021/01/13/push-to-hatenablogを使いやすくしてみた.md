@@ -1,14 +1,14 @@
 ---
 Title: push-to-hatenablogを使いやすくしてみた
-Date: 2021-01-03T23:52:20+09:00
-URL: https://ymmmtym.hateblo.jp/entry/2021/01/03/push-to-hatenablog%E3%82%92%E4%BD%BF%E3%81%84%E3%82%84%E3%81%99%E3%81%8F%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F
+Date: 2021-01-13T23:52:20+09:00
+URL: https://ymmmtym.hateblo.jp/entry/2021/01/13/push-to-hatenablog%E3%82%92%E4%BD%BF%E3%81%84%E3%82%84%E3%81%99%E3%81%8F%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613673835711
 Draft: true
 ---
 
-[:contents]
+ブログの下書きはmarkdownで書きたいと思い、**push-to-hatenablog**を導入してみました。
 
-markdownで書くことが多いので、**push-to-hatenablog**を導入してみました。
+[https://github.com/mm0202/push-to-hatenablog:embed:cite]
 
 以前までは、記事を投稿する時は既存のmarkdownからコピペして整形していましたが、  
 導入後は、markdownがそのまま記事として投稿できるので、とても満足しています。
@@ -19,14 +19,14 @@ markdownで書くことが多いので、**push-to-hatenablog**を導入して�
 普段はQiitaばかりで、はてなブログには記事を全く投稿していませんが、  
 push-to-hatenablogが結構使いやすかったので、これを機に投稿を増やしていきたいと思います。
 
+[:contents]
+
 ## push-to-hatenablogとは
 
 「はてなブログ記事の作成/取得/更新が、CLIで出来るようになります。」
 
 導入方法は、以下のGitHubリポジトリの`README.md`に記載されています。  
 そこまで難しくなく、30分もあればGitHubとはてなブログの同期が出来ると思います。
-
-[https://github.com/mm0202/push-to-hatenablog:embed:cite]
 
 以下のブログにも詳しい説明が書いてあるので、詳細はこちらを確認してください。
 
@@ -36,17 +36,37 @@ push-to-hatenablogが結構使いやすかったので、これを機に投稿�
 
 ## どのように使いやすくするのか
 
-- main(master)ブランチはバックアップ専用
-- entries/*ブランチは修正用
-- 記事の新規投稿はCLIで行う
+私のはてなブログのソースコードは、以下のGitHubリポジトリで管理しています。
 
-## push.ymlの修正
+[https://github.com/ymmmtym/hatena-blog:embed:cite]
 
-## pull.ymlの追加
+デフォルトの状態から少しだけ修正して、以下のようなルールで記事を管理しています。
+
+- はてなブログ上に保存されている記事が神様
+- main(master)ブランチは、記事のバックアップ専用
+- entries/*ブランチは、はてなブログ上の記事修正用
+- 記事の新規投稿はローカルのCLIで行う
+
+## デフォルトからの修正点
+
+### push.ymlの修正
+
+### pull.ymlの追加
+
+このGitHub Actionsを追加することにより、  
+はてなブログ上で管理されている記事を定期的に取得することができます。
 
 Pullする前に`entries`ディレクトリを削除する必要がありました。
 
 ## 管理方法まとめ
+
+### はてなブログ記事のバックアップを更新する時(自動)
+
+<figure class="figure-image figure-image-fotolife" title="GitHub Actions Action User">[f:id:ymmmtym:20210111214346p:plain:alt=GitHub Actions Action User]<figcaption>GitHub Actions Action User</figcaption></figure>
+
+### はてなブログ記事を修正する時
+
+<figure class="figure-image figure-image-fotolife" title="GitHub Repository entries branch">[f:id:ymmmtym:20210111214611p:plain:alt=GitHub Repository entries branch]<figcaption>GitHub Repository entries branch</figcaption></figure>
 
 ## さいごに
 
