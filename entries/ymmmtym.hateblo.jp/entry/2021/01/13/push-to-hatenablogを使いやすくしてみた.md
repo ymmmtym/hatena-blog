@@ -6,17 +6,17 @@ EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/2600661
 Draft: true
 ---
 
-ブログの下書きはmarkdownで書きたいと思い、**push-to-hatenablog**を導入してみました。
+ブログをmarkdownで書きたいと思い、**push-to-hatenablog**を導入してみました。
 
 [https://github.com/mm0202/push-to-hatenablog:embed:cite]
 
-以前までは、記事を投稿する時は既存のmarkdownからコピペして整形していましたが、  
+以前までは、記事を投稿する時は下書き用のmarkdownからコピペして整形していましたが、  
 導入後は、markdownがそのまま記事として投稿できるので、とても満足しています。
 
 さらに GitHub Actions で投稿する際の手間を出来る限り省くことで、  
 「メモを取る」ことから「記事を書く」までの心理的ハードルを下げることが出来ました。
 
-普段はQiitaばかりで、はてなブログには記事を全く投稿していませんが、  
+普段は少しだけQiitaで情報発信する程度で、はてなブログには記事を全く投稿していませんが、  
 push-to-hatenablogが結構使いやすかったので、これを機に投稿を増やしていきたいと思います。
 
 [:contents]
@@ -43,8 +43,8 @@ push-to-hatenablogが結構使いやすかったので、これを機に投稿�
 デフォルトの状態から少しだけ修正して、以下のようなルールで記事を管理しています。
 
 - はてなブログ上に保存されている記事が神様
-- main(master)ブランチは、記事のバックアップ専用
-- entries/*ブランチは、はてなブログ上の記事修正用
+- デフォルトbranchは、記事のバックアップ専用
+- デフォルト以外のbranchは、はてなブログで管理されている記事の修正用
 - 記事の新規投稿はローカルのCLIで行う
 
 ## デフォルトからの修正点
@@ -61,33 +61,59 @@ GitHub上で新しくmainブランチを作成して、リポジトリの「sett
 
 [https://qiita.com/fk_chang/items/a4839a595fef9a2c3724:embed:cite]
 
-以降の内容、ソースコードはデフォルトbranchがmainである前提で記載しています。
+以降の内容・ソースコードはデフォルトbranchがmainである前提で記載しています。
 
 ### `push.yml`の修正
 
-デフォルトで用意されている`push.yml`を修正しました。  
-こちらは大きな変更点はなく、以下の2つになります。
+まず`push.yml`について説明すると、GitHub Actionsで以下のようなworkflowが実行されます。
+
+- **デフォルト以外**のbranchがGitHubに作成された時、デフォルトbranchとの差分をはてなブログで管理している記事も更新する
+
+つまり、既にはてなブログで管理している記事を更新する時に使用されます。  
+こちらのファイルは以下の2つを修正しました。
 
 - masterとなっているbranchをmainに変更
 - Timezoneを**Asia/Tokyo**に設定
 
-前節でデフォルトbranchを変更しましたので、それを適用します。  
-また、Timezomeも**Asia/Tokyo**に設定しました。現状はこれを活用していないですが、今後自動で時刻を取得したい時に日本時間を取得しやすくしました。
-
-完成したソースコードは以下になります。
+ソースコードは以下になります。
 
 <script src="https://gist-it.appspot.com/https://github.com/ymmmtym/hatena-blog/blob/main/.github/workflows/push.yml?slice=1:5"></script>
 
+前節でデフォルトbranchを変更しましたので、それを適用します。  
+また、`Timezome: Asia/Tokyo`に設定しました。現状はこれを活用していないですが、workflow中に`date`コマンドなどで時刻を取得したくなった時に、日本時間になるようにしています。
+
 ### `pull.yml`の追加
 
-このGitHub Actionsを追加することにより、  
-はてなブログ上で管理されている記事を定期的に取得することができます。
-
-Pullする前に`entries`ディレクトリを削除する必要がありました。
-
-完成したソースコードは以下になります。
+`pull.yml`は新しく追加したファイルで、`push.yml`と同じディレクトリに配置します。  
+ソースコードは以下になります。
 
 <script src="https://gist-it.appspot.com/https://github.com/ymmmtym/hatena-blog/blob/main/.github/workflows/pull.yml?slice=1:5"></script>
+
+このGitHub Actionsを追加することにより、以下のworkflowを追加しました。
+
+- **定期的に**、はてなブログで管理している記事を**デフォルト**branchにpullする
+- **push.yml実行後に**、はてなブログで管理している記事を**デフォルト**branchにpullする
+
+このworkflowを追加した理由は、「デフォルトbranchで記事のバックアップをする」という目的があったからです。
+
+定期的にデフォルトbranchにバックアップを実行することで、はてなブログ管理の記事をまるっとGitHubにも同期します。
+
+#### workflow作成する時に注意したこと
+
+リポジトリ更新時にデグレが発生しないように以下の注意しました。
+
+- cronの設定で5分ごとに実行する
+- `push.yml`の後に必ず実行する
+- リポジトリ上にゴミが残らないようにする
+
+定期的に実行のタイミングについて、GitHub Actionsで設定可能な最短時間である5分ごとにしています。  
+さらにはてなブログ管理の記事を更新した時、即時にGitHubにも反映されるように`push.yml`実行後には必ず実行します。
+
+最後にGitHubにゴミが残らないようにするですが、`blogsync pull`を実行した時に既に`entries`ディレクトリが存在すると、はてなブログ上には存在しないがGitHubには存在するといった**ごみ**が残ってしまいます。
+
+（例えば、タイトルを変えた場合は変更前のタイトルのファイルがそのままGitHubに残ってしまいます。）
+
+これを回避するために、こちらではPullする前に`entries`ディレクトリを削除するようにしています。
 
 ## 管理方法まとめ
 
