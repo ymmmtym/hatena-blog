@@ -144,6 +144,8 @@ GitHub上で新しくmainブランチを作成して、リポジトリの「sett
 
 ### はてなブログ記事を新規投稿する時
 
+カスタムURLのスペースはアンダースコア(_)に変換されます。
+
 ## さいごに
 
 [https://qiita.com/basd4g/items/1a38857f6bafb20f065d:embed:cite]
