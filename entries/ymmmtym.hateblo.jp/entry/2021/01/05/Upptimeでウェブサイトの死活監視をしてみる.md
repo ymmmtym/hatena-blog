@@ -1,6 +1,6 @@
 ---
 Title: Upptimeでウェブサイトの死活監視をしてみる
-Date: 2021-01-05T16:25:26+09:00
+Date: 2021-01-11T20:25:26+09:00
 URL: https://ymmmtym.hateblo.jp/entry/2021/01/05/Upptime%E3%81%A7%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%AD%BB%E6%B4%BB%E7%9B%A3%E8%A6%96%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613674493873
 Draft: true
@@ -8,7 +8,7 @@ Draft: true
 
 Upptimeとは、OSSの死活監視ソフトウェアです。
 
-公式サイト: [Upptime](https://upptime.js.org/)
+[https://upptime.js.org/:embed:cite]
 
 GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使って、  
 サービスごとに以下のような死活監視を行うことができます。
@@ -30,7 +30,9 @@ GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使っ�
 
 ### リポジトリ作成
 
-<https://github.com/upptime/upptime>に移動して、「Use this template」をクリックします。  
+[https://github.com/upptime/upptime:embed:cite]
+
+上記のリポジトリに移動して、「Use this template」をクリックします。  
 画面が遷移したら、以下の設定をします。
 
 - Repository name: 任意でOK
@@ -80,6 +82,8 @@ status-website:
   name: Upptime # 監視サイトの名前
 ```
 
+修正する内容をまとめると以下のようになります。
+
 | 項目               | 説明                             |
 | ---------------- | ------------------------------ |
 | owner            | GitHubのユーザ名                    |
@@ -101,4 +105,4 @@ status-website:
 
 ## Reference
 
-- [GitHubのサービスを駆使してウェブサイトの死活監視が無料で行える「Upptime」 - GIGAZINE](https://gigazine.net/news/20210104-upptime/)
+[https://gigazine.net/news/20210104-upptime/:embed:cite]
