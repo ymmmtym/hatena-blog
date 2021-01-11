@@ -1,5 +1,8 @@
 # push-to-hatenablog
- GitHubとはてなブログの連携用環境。GitHubに記事の編集内容をプッシュするとはてなブログの記事も更新されます。
+
+![Pull from hatena blog](https://github.com/ymmmtym/hatena-blog/workflows/Pull%20from%20hatena%20blog/badge.svg) ![Push to hatena blog](https://github.com/ymmmtym/hatena-blog/workflows/Push%20to%20hatena%20blog/badge.svg)
+
+GitHubとはてなブログの連携用環境。GitHubに記事の編集内容をプッシュするとはてなブログの記事も更新されます。
 
 ## セットアップ
 ### GitHubリポジトリの追加
