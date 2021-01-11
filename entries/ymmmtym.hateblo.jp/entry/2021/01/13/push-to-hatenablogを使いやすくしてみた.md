@@ -49,14 +49,45 @@ push-to-hatenablogが結構使いやすかったので、これを機に投稿�
 
 ## デフォルトからの修正点
 
-### push.ymlの修正
+自分のリポジトリに**push-to-hatenablog**のリポジトリをコピーしたら、以下の修正を行っていきます。
 
-### pull.ymlの追加
+### デフォルトbranchをmainに変更
+
+個人的に、自分のリポジトリはデフォルトbranchを**main**に設定しているので、push-to-hatenablogにも同様の設定します。
+
+GitHub上で新しくmainブランチを作成して、リポジトリの「settings」から変更することができます。
+
+以下に詳しい方法が書いてあるので、詳細は割愛します。
+
+[https://qiita.com/fk_chang/items/a4839a595fef9a2c3724:embed:cite]
+
+以降の内容、ソースコードはデフォルトbranchがmainである前提で記載しています。
+
+### `push.yml`の修正
+
+デフォルトで用意されている`push.yml`を修正しました。  
+こちらは大きな変更点はなく、以下の2つになります。
+
+- masterとなっているbranchをmainに変更
+- Timezoneを**Asia/Tokyo**に設定
+
+前節でデフォルトbranchを変更しましたので、それを適用します。  
+また、Timezomeも**Asia/Tokyo**に設定しました。現状はこれを活用していないですが、今後自動で時刻を取得したい時に日本時間を取得しやすくしました。
+
+完成したソースコードは以下になります。
+
+<script src="https://gist-it.appspot.com/https://github.com/ymmmtym/hatena-blog/blob/main/.github/workflows/push.yml?slice=1:5"></script>
+
+### `pull.yml`の追加
 
 このGitHub Actionsを追加することにより、  
 はてなブログ上で管理されている記事を定期的に取得することができます。
 
 Pullする前に`entries`ディレクトリを削除する必要がありました。
+
+完成したソースコードは以下になります。
+
+<script src="https://gist-it.appspot.com/https://github.com/ymmmtym/hatena-blog/blob/main/.github/workflows/pull.yml?slice=1:5"></script>
 
 ## 管理方法まとめ
 
@@ -67,6 +98,10 @@ Pullする前に`entries`ディレクトリを削除する必要がありまし�
 ### はてなブログ記事を修正する時
 
 <figure class="figure-image figure-image-fotolife" title="GitHub Repository entries branch">[f:id:ymmmtym:20210111214611p:plain:alt=GitHub Repository entries branch]<figcaption>GitHub Repository entries branch</figcaption></figure>
+
+#### 下書き記事を公開する方法
+
+下書き記事を公開する時は、Markdownのメタデータである`draft: true`を削除します。
 
 ## さいごに
 
