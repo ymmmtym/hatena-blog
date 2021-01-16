@@ -49,14 +49,14 @@ jobs:
         git diff origin/main --name-only --diff-filter=ACMR \
         | grep entries/${DOMAIN}/entry \
         | xargs -t -n1 ~/go/bin/blogsync push
-      if: ${{ steps.status.outputs.entries }}
+      if: ${{ steps.entries.outputs.entries }}
 
     - name: post from draft
       run: |
         export TITLE=$(grep  "^Title:" ${DRAFT} | sed -e 's/^Title:\ //g')
         export ENTRY_PATH=$(date '+%Y/%m/%d')/$(echo ${TITLE} | sed -e "s/\ /_/g")
         ~/go/bin/blogsync post --title=${TITLE} --draft --custom-path=${ENTRY_PATH} ${DOMAIN} < ${DRAFT}
-      if: ${{ steps.status.outputs.draft }}
+      if: ${{ steps.draft.outputs.draft }}
 
     # - name: notify to slack
     #   uses: mm0202/action_slack-notify@master
