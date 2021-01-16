@@ -33,7 +33,7 @@ jobs:
 
     - name: Check if some entries are modified
       id: entries
-      run: echo "::set-output name=entries::$(git diff origin/main --name-only --diff-filter=ACMR | grep -v ${DRAFT})"
+      run: echo "::set-output name=entries::$(git diff origin/main --name-only --diff-filter=ACMR | grep entries/${DOMAIN}/entry)"
 
     - name: Check if draft is modified
       id: draft
