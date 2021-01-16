@@ -1,7 +1,7 @@
 ---
-Title: test
-Category:
+Title: ここに記事のタイトルを書きます
+Category: # リスト型でカテゴリーを追加できます
 - IT
 ---
 
-github actions postテスト用の記事です。
+ここから記事の内容を書きます。
