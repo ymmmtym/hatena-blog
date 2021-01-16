@@ -14,6 +14,7 @@ jobs:
       BSY: ${{ secrets.BSY }}
       DOMAIN: ${{ secrets.DOMAIN }}
       TZ: "Asia/Tokyo"
+      DRAFT: draft.md
     steps:
 
     - name: Set up Go 1.13
@@ -25,19 +26,37 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - run: git fetch origin main
+    - name: setting git
+      run: |
+        git fetch origin main
+        git config --global core.quotepath false
+
+    - name: Check if some entries are modified
+      id: entries
+      run: echo "::set-output name=entries::$(git diff origin/main --name-only --diff-filter=ACMR | grep entries/${DOMAIN}/entry)"
+
+    - name: Check if draft is modified
+      id: draft
+      run: echo "::set-output name=draft::$(git diff origin/main --name-only --diff-filter=ACMR ${DRAFT})"
 
     - name: Setup blogsync
       run: |
-        go get github.com/motemen/blogsync        
+        go get github.com/motemen/blogsync
         echo -e ${BSY} > blogsync.yaml
 
     - name: push
       run: |
-        git config --global core.quotepath false
-        git diff origin/main --name-only \
+        git diff origin/main --name-only --diff-filter=ACMR \
         | grep entries/${DOMAIN}/entry \
         | xargs -t -n1 ~/go/bin/blogsync push
+      if: ${{ steps.entries.outputs.entries }}
+
+    - name: post from draft
+      run: |
+        export TITLE=$(grep  "^Title:" ${DRAFT} | sed -e 's/^Title:\ //g')
+        export ENTRY_PATH=$(date '+%Y/%m/%d')/$(echo ${TITLE} | sed -e "s/\ /_/g")
+        ~/go/bin/blogsync post --title=${TITLE} --draft --custom-path=${ENTRY_PATH} ${DOMAIN} < ${DRAFT}
+      if: ${{ steps.draft.outputs.draft }}
 
     # - name: notify to slack
     #   uses: mm0202/action_slack-notify@master
