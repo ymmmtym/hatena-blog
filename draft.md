@@ -4,4 +4,4 @@ Category:
 - IT
 ---
 
-postテスト用の記事です。
+github actions postテスト用の記事です。
