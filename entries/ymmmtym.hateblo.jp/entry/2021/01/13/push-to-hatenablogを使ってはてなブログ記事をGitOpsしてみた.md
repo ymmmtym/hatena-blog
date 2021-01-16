@@ -1,7 +1,7 @@
 ---
-Title: push-to-hatenablogを使いやすくしてみた
+Title: push-to-hatenablogを使ってはてなブログ記事をGitOpsしてみた
 Date: 2021-01-13T23:52:20+09:00
-URL: https://ymmmtym.hateblo.jp/entry/2021/01/13/push-to-hatenablog%E3%82%92%E4%BD%BF%E3%81%84%E3%82%84%E3%81%99%E3%81%8F%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F
+URL: https://ymmmtym.hateblo.jp/entry/2021/01/13/push-to-hatenablog%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%96%E3%83%AD%E3%82%B0%E8%A8%98%E4%BA%8B%E3%82%92GitOps%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613673835711
 Draft: true
 ---
@@ -49,6 +49,10 @@ push-to-hatenablogが結構使いやすかったので、これを機に投稿�
 - 記事の新規投稿はリポジトリにある`draft.md`を修正する
 - はてなブログ編集画面でも編集可能にする
 
+### Before / After
+
+以下のような流れで記事の「新規投稿」と「更新」をしています。
+
 ## デフォルトからの修正点
 
 自分のリポジトリに**push-to-hatenablog**のリポジトリをコピーして、以下の修正を行いました。
@@ -89,15 +93,17 @@ GitHub上で新しくmainブランチを作成して、リポジトリの「sett
 次にPushする前に`git config --global core.quotepath false`コマンドを追加しました。  
 これは、記事のURLのフォーマットを「タイトル」にしたかったので追加したコマンドになります。
 
-はてなブログの設定で記事のURLのフォーマットを「タイトル」にした場合、Markdownのファイル名も「タイトル」そのものになります。  (厳密に言うと、空白( )はアンダースコア(_)に置き換わります)
+はてなブログの設定で記事のURLのフォーマットを「タイトル」にした場合、Markdownのファイル名も「タイトル」そのものになります。  (厳密に言うと、空白( )はアンダースコア(_)に置き換わります)  
 この時に、ファイル名（タイトル）に日本語が含まれる場合、デフォルトのworkflowだとうまく動作しませんでした。
 
 （具体的には、workflow中の`git diff`コマンドで表示されるファイル名の表記が日本語にならず、差分があるファイルを特定できません）
 
 前述のコマンドを使用することで、正しいファイル名が表示されるようになり、workflowが正常に動作します。
 
-最後に、`Timezome: Asia/Tokyo`に設定しました。
+最後に、`Timezome: Asia/Tokyo`に設定しました。  
 これは記事を新規投稿する時に、自動的にworkflow「投稿日時」が設定されるようになっているため、日本時間になるようにしました。
+
+CLIで新規投稿する方法もありますが、リポジトリに変更を加えただけで
 
 ### `pull.yml`の追加
 
@@ -135,19 +141,44 @@ GitHub上で新しくmainブランチを作成して、リポジトリの「sett
 
 ## 管理方法まとめ
 
+まとめると、以下のようにはてなブログを管理しています。
+
 ### はてなブログ記事のバックアップを更新する時(自動)
+
+5分ごとに GitHub Actions が実行され、自動で取得されます。
 
 <figure class="figure-image figure-image-fotolife" title="GitHub Actions Action User">[f:id:ymmmtym:20210111214346p:plain:alt=GitHub Actions Action User]<figcaption>GitHub Actions Action User</figcaption></figure>
 
-### はてなブログ記事を修正する時
+上記のようにaction-userが記事の更新をしてくれます。  
+`pull.yml`でcommiterやemailなどの変更もできます。
+
+### はてなブログ記事を「新規投稿」「更新」する時
+
+まずはmainブランチに移動して、`git pull`をしてローカルリポジトリを更新します。
+
+その後、ブランチを作成して記事を修正し、GitHubにpushします。  
+(以下ではentries/hogeブランチで記事を新規投稿 or 更新しています)
+
+```bash
+git chekckout main
+git pull
+git checkout -b entries/hoge
+
+: 記事を更新する時はentryディレクトリのファイルを更新する:
+: 記事を新規投稿する時はdraft.mdを修正する:
+
+git push origin entries/hoge
+```
 
 <figure class="figure-image figure-image-fotolife" title="GitHub Repository entries branch">[f:id:ymmmtym:20210111214611p:plain:alt=GitHub Repository entries branch]<figcaption>GitHub Repository entries branch</figcaption></figure>
 
+pushが完了するとpullが始まって、mainブランチにも変更が適用されるので、このブランチは最後に破棄します。
+
+画像などの詳細オプションは、ローカルのmarkdownを編集すると逆に面倒なので、ある程度記事を書いたらはてなブログ上でも編集します。
+
 #### 下書き記事を公開する方法
 
-下書き記事を公開する時は、Markdownのメタデータである`draft: true`を削除します。
-
-### はてなブログ記事を新規投稿する時
+下書き記事を公開する時は、Markdownのメタデータである`Draft: true`を削除します。
 
 ## さいごに
 
