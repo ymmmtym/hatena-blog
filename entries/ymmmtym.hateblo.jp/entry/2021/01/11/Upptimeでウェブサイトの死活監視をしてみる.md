@@ -13,8 +13,7 @@ Upptimeとは、OSSの死活監視ソフトウェアです。
 
 [https://upptime.js.org/:embed:cite]
 
-GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使って、  
-サービスごとに以下のような死活監視を行うことができます。
+GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使って、サービスごとに以下のような死活監視を行うことができます。
 
 | 使用するGitHubのサービス | 機能                 |
 | --------------- | ------------------ |
@@ -24,7 +23,7 @@ GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使っ�
 
 その他にも、監視するHTTPステータスコード、Slackやメール、SMS通知などを設定することができます。
 
-私は、サイト監視には「UptimeRobot」と言うSaaSの無料プランを使っていますが、
+私は、サイト監視に「UptimeRobot」と言うSaaSの無料プランを使っていますが、
 
 - 「自身が運営しているサイトの監視をソースコード管理したい」
 - 「OSSで完全無料で使える監視サイトを自分で構築したい」
@@ -46,16 +45,16 @@ GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使っ�
 
 [https://github.com/upptime/upptime:embed:cite]
 
-上記のリポジトリに移動して、「Use this template」をクリックします。  
-
-(画像: upptime-formal-repo)
+上記のリポジトリに移動して、「Use this template」をクリックします。
+  
+<figure class="figure-image figure-image-fotolife" title="Upptime formal repotitory">[f:id:ymmmtym:20210117215121p:plain:alt=Upptime formal repotitory]<figcaption>Upptime formal repotitory</figcaption></figure>
 
 画面が遷移したら、以下の設定をします。
 
 - Repository name: 任意でOK
 - Include all branches: チェック
 
-(画像: upptime-use-this-template)
+<figure class="figure-image figure-image-fotolife" title="Create Upptime repository own from template">[f:id:ymmmtym:20210117215151p:plain:alt=Create Upptime repository own from template]<figcaption>Create Upptime repository own from template</figcaption></figure>
 
 この状態で「Create repository from template」をクリックすると、  
 「Repository name」で入力した名前で、自身のリポジトリが作成されます。
@@ -71,7 +70,7 @@ UpptimeのWebサイトは、デフォルトで**gh-pages**ブランチに作成�
 リポジトリの「Settings」にあるGitHub Pagesの設定に移動します。  
 「Source: gh-pages /(root)」で「Save」をクリックします。
 
-(画像: upptime-github-pages)
+<figure class="figure-image figure-image-fotolife" title="Setting branch of GitHub Pages">[f:id:ymmmtym:20210117215142p:plain:alt=Setting branch of GitHub Pages]<figcaption>Setting branch of GitHub Pages</figcaption></figure>
 
 ### Secrets設定
 
@@ -85,12 +84,12 @@ Actionsで使用するPAT(Personal Access Token)を作成する必要があり�
 
 GitHubのサイトから、右上のアイコンをクリックして「Settings」を開きます。
 
-(画像)
+<figure class="figure-image figure-image-fotolife" title="GitHub Personal Settings">[f:id:ymmmtym:20210117215210p:plain:alt=GitHub Personal Settings]<figcaption>GitHub Personal Settings</figcaption></figure>
 
 次に、「Developer settings」 > 「Personal access tokens」に移動して、  
 「Generate new token」をクリックします。
 
-(画像)
+[f:id:ymmmtym:20210117215215p:plain]
 
 GitHubのパスワードが求めらるので、入力すると以下の画面になります。
 
@@ -170,6 +169,8 @@ Upptimeには使用していないので、cnameはコメントアウトしてba
 上記の修正をしてcommitすると、"Setup CI"というworkflowが実行され、完了するとUpptimeが構築されています。
 
 `http://<GitHubユーザ名>.github.io/<リポジトリ名>`にアクセスすると、Upptimeにアクセスできます。
+
+(画像)
 
 サイト監視については、Upptimeのwebサイトが更新されるだけでなく`README.md`も更新されるので、  
 かっこいいREADMEが勝手に作成されるところも、少し気に入っています。
