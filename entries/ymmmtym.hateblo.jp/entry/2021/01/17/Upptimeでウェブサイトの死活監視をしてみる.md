@@ -3,10 +3,9 @@ Title: Upptimeでウェブサイトの死活監視をしてみる
 Category:
 - IT
 - Monitoring
-Date: 2021-01-11T20:25:26+09:00
-URL: https://ymmmtym.hateblo.jp/entry/2021/01/11/Upptime%E3%81%A7%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%AD%BB%E6%B4%BB%E7%9B%A3%E8%A6%96%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B
+Date: 2021-01-17T22:30:00+09:00
+URL: https://ymmmtym.hateblo.jp/entry/2021/01/17/Upptime%E3%81%A7%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%AD%BB%E6%B4%BB%E7%9B%A3%E8%A6%96%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613674493873
-Draft: true
 ---
 
 Upptimeとは、OSSの死活監視ソフトウェアです。
@@ -74,11 +73,9 @@ UpptimeのWebサイトは、デフォルトで**gh-pages**ブランチに作成�
 
 ### Secrets設定
 
-Upptimeで使用されるGitHub Actionsでは、  
-監視やWebサイトの作成だけでなく、リポジトリ更新も行います。
+Upptimeで使用されるGitHub Actionsでは、監視やWebサイトの作成だけでなく、リポジトリ更新も行います。
 
-つまり、GitHub Actionsの処理中にリポジトリを編集する権限が必要になるので、  
-Actionsで使用するPAT(Personal Access Token)を作成する必要があります。
+つまり、GitHub Actionsの処理中にリポジトリを編集する権限が必要になるので、Actionsで使用するPAT(Personal Access Token)を作成する必要があります。
 
 #### Personal Access Token の作成
 
@@ -86,27 +83,24 @@ GitHubのサイトから、右上のアイコンをクリックして「Settings
 
 <figure class="figure-image figure-image-fotolife" title="GitHub Personal Settings">[f:id:ymmmtym:20210117215210p:plain:alt=GitHub Personal Settings]<figcaption>GitHub Personal Settings</figcaption></figure>
 
-次に、「Developer settings」 > 「Personal access tokens」に移動して、  
-「Generate new token」をクリックします。
+次に、「Developer settings」 > 「Personal access tokens」に移動して、「Generate new token」をクリックします。
 
-[f:id:ymmmtym:20210117215215p:plain]
+<figure class="figure-image figure-image-fotolife" title="Generate Personal Access Token">[f:id:ymmmtym:20210117215215p:plain:alt=Generate Personal Access Token]<figcaption>Generate Personal Access Token</figcaption></figure>
 
 GitHubのパスワードが求めらるので、入力すると以下の画面になります。
 
-(画像)
+<figure class="figure-image figure-image-fotolife" title="Setting Personal Access Token">[f:id:ymmmtym:20210117215138p:plain:alt=Setting Personal Access Token]<figcaption>Setting Personal Access Token</figcaption></figure>
 
 「Note」には、何のtokenであるか分かるような名前を入力します。  
 (私は「upptime」とだけ入れました)
 
-「repo」と「workflow」にチェックを入れたら、  
-画面下までスクロールして、「Generate token」をクリックするとtokenが作成されます。
+「repo」と「workflow」にチェックを入れたら、画面下までスクロールして、「Generate token」をクリックするとtokenが作成されます。
 
-(画像)
+<figure class="figure-image figure-image-fotolife" title="PAT Generated">[f:id:ymmmtym:20210117215157p:plain:alt=PAT Generated]<figcaption>PAT Generated</figcaption></figure>
 
 このtokenはリポジトリの設定に必要となるので、メモっておきましょう。
 
-また、このtokenがあればリポジトリにアクセスできてしまうので、  
-取り扱いには注意してください。
+また、このtokenがあればリポジトリにアクセスできてしまうので、取り扱いには注意してください。
 
 #### Repository Secrets
 
@@ -114,7 +108,7 @@ GitHubのパスワードが求めらるので、入力すると以下の画面�
 
 リポジトリに戻って、「Settings」 > 「Secrets」の順に開きます。
 
-(画像)
+<figure class="figure-image figure-image-fotolife" title="Repository Secrets">[f:id:ymmmtym:20210117215132p:plain:alt=Repository Secrets]<figcaption>Repository Secrets</figcaption></figure>
 
 「New repository secret」をクリックして、
 
@@ -123,7 +117,7 @@ GitHubのパスワードが求めらるので、入力すると以下の画面�
 
 を入力し、「Add secret」をクリックします。
 
-(画像)
+<figure class="figure-image figure-image-fotolife" title="Add Secret">[f:id:ymmmtym:20210117215147p:plain:alt=Add Secret]<figcaption>Add Secret</figcaption></figure>
 
 以上で、リポジトリに関する設定は完了です。
 
@@ -151,7 +145,7 @@ status-website:
   name: Upptime # 監視サイトの名前
 ```
 
-私の場合は、`ymmtym.github.io`のドメインに`ymmmtym.com`と言うカスタムドメインを使っていたのですが、  
+私の場合は、`ymmtym.github.io`のドメインに`ymmmtym.com`と言うカスタムドメインを使っていますが、  
 Upptimeには使用していないので、cnameはコメントアウトしてbaseUrlをコメントインしています。
 
 修正する内容をまとめると以下のようになります。
@@ -170,10 +164,20 @@ Upptimeには使用していないので、cnameはコメントアウトしてba
 
 `http://<GitHubユーザ名>.github.io/<リポジトリ名>`にアクセスすると、Upptimeにアクセスできます。
 
-(画像)
+<figure class="figure-image figure-image-fotolife" title="Upptime Top Page">[f:id:ymmmtym:20210117215127p:plain:alt=Upptime Top Page]<figcaption>Upptime Top Page</figcaption></figure>
 
-サイト監視については、Upptimeのwebサイトが更新されるだけでなく`README.md`も更新されるので、  
-かっこいいREADMEが勝手に作成されるところも、少し気に入っています。
+サイト監視については、Upptimeのwebサイトが更新されるだけでなく`README.md`も更新されるので、かっこいいREADMEが勝手に作成されるところも、少し気に入っています。
+
+<figure class="figure-image figure-image-fotolife" title="Upptime README">[f:id:ymmmtym:20210117215205p:plain:alt=Upptime README]<figcaption>Upptime README</figcaption></figure>
+
+また、サイトがDownするとIssueが作成されます。  
+HTTPステータスコードと、Response Timeも書いてありますね。
+
+<figure class="figure-image figure-image-fotolife" title="Upptime Opened Issue">[f:id:ymmmtym:20210117215201p:plain:alt=Upptime Opened Issue]<figcaption>Upptime Opened Issue</figcaption></figure>
+
+サイトが復旧すると自動的にIssueがCloseされます。
+
+<figure class="figure-image figure-image-fotolife" title="Upptime Closed Issue">[f:id:ymmmtym:20210117221021p:plain:alt=Upptime Closed Issue]<figcaption>Upptime Closed Issue</figcaption></figure>
 
 ### さいごに
 
