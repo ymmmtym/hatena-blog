@@ -2,6 +2,7 @@
 Title: Upptimeでウェブサイトの死活監視をしてみる
 Category:
 - IT
+- Monitoring
 Date: 2021-01-11T20:25:26+09:00
 URL: https://ymmmtym.hateblo.jp/entry/2021/01/11/Upptime%E3%81%A7%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%AD%BB%E6%B4%BB%E7%9B%A3%E8%A6%96%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B
 EditURL: https://blog.hatena.ne.jp/ymmmtym/ymmmtym.hateblo.jp/atom/entry/26006613674493873
@@ -23,7 +24,18 @@ GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使っ�
 
 その他にも、監視するHTTPステータスコード、Slackやメール、SMS通知などを設定することができます。
 
-自身のリポジトリを作成して、Upptimeを構築してみます。
+私は、サイト監視には「UptimeRobot」と言うSaaSの無料プランを使っていますが、
+
+- 「自身が運営しているサイトの監視をソースコード管理したい」
+- 「OSSで完全無料で使える監視サイトを自分で構築したい」
+
+と言う人には「Upptime」が向いているかなと思います。
+
+(ちなみに、UptimeRobotはこちら)
+
+[https://uptimerobot.com/:embed:cite]
+
+それでは自身のリポジトリを作成して、Upptimeを構築してみます。
 
 ## Upptimeを構築する
 
@@ -35,13 +47,21 @@ GitHubのサービス(GitHub Actions,GitHub Pages,GitHub Issues)のみを使っ�
 [https://github.com/upptime/upptime:embed:cite]
 
 上記のリポジトリに移動して、「Use this template」をクリックします。  
+
+(画像: upptime-formal-repo)
+
 画面が遷移したら、以下の設定をします。
 
 - Repository name: 任意でOK
 - Include all branches: チェック
 
+(画像: upptime-use-this-template)
+
 この状態で「Create repository from template」をクリックすると、  
-自身のリポジトリが作成されます。
+「Repository name」で入力した名前で、自身のリポジトリが作成されます。
+
+作成したリポジトリに移動したら、必要な設定をしていきます。  
+まずはGitHubのWeb上で行う設定をしていきます。
 
 ### GitHub Pages設定
 
@@ -51,23 +71,71 @@ UpptimeのWebサイトは、デフォルトで**gh-pages**ブランチに作成�
 リポジトリの「Settings」にあるGitHub Pagesの設定に移動します。  
 「Source: gh-pages /(root)」で「Save」をクリックします。
 
+(画像: upptime-github-pages)
+
 ### Secrets設定
 
 Upptimeで使用されるGitHub Actionsでは、  
 監視やWebサイトの作成だけでなく、リポジトリ更新も行います。
 
-したがって、Actionsで使用するPAT(Personal Access Token)を作成する必要があります。
+つまり、GitHub Actionsの処理中にリポジトリを編集する権限が必要になるので、  
+Actionsで使用するPAT(Personal Access Token)を作成する必要があります。
 
-#### Personal Access Token
+#### Personal Access Token の作成
+
+GitHubのサイトから、右上のアイコンをクリックして「Settings」を開きます。
+
+(画像)
+
+次に、「Developer settings」 > 「Personal access tokens」に移動して、  
+「Generate new token」をクリックします。
+
+(画像)
+
+GitHubのパスワードが求めらるので、入力すると以下の画面になります。
+
+(画像)
+
+「Note」には、何のtokenであるか分かるような名前を入力します。  
+(私は「upptime」とだけ入れました)
+
+「repo」と「workflow」にチェックを入れたら、  
+画面下までスクロールして、「Generate token」をクリックするとtokenが作成されます。
+
+(画像)
+
+このtokenはリポジトリの設定に必要となるので、メモっておきましょう。
+
+また、このtokenがあればリポジトリにアクセスできてしまうので、  
+取り扱いには注意してください。
 
 #### Repository Secrets
 
 作成したPATをRepository Secretsに登録します。
 
+リポジトリに戻って、「Settings」 > 「Secrets」の順に開きます。
+
+(画像)
+
+「New repository secret」をクリックして、
+
+- Name: GH_PAT
+- Value: 先ほど作成したPAT
+
+を入力し、「Add secret」をクリックします。
+
+(画像)
+
+以上で、リポジトリに関する設定は完了です。
+
 ### 設定ファイルの修正
 
-Upptimeの設定は`.upptimerc.yml`の1つのファイルで定義されています。  
+Upptimeの設定は、リポジトリ配下にある`.upptimerc.yml`の1つのファイルで定義されています。  
 masterブランチでこのファイルを修正することで、全体の設定をすることが出来ます。
+
+私の`.upptimerc.yml`は以下のようになっています。
+
+<script src="https://gist-it.appspot.com/https://github.com/ymmmtym/upptime/blob/master/.upptimerc.yml?slice=1:5"></script>
 
 ここでは、Upptimeを構築する上で必須となる項目を設定していきます。  
 変更する箇所を抜粋したものは以下になります。
@@ -84,6 +152,9 @@ status-website:
   name: Upptime # 監視サイトの名前
 ```
 
+私の場合は、`ymmtym.github.io`のドメインに`ymmmtym.com`と言うカスタムドメインを使っていたのですが、  
+Upptimeには使用していないので、cnameはコメントアウトしてbaseUrlをコメントインしています。
+
 修正する内容をまとめると以下のようになります。
 
 | 項目               | 説明                             |
@@ -99,6 +170,9 @@ status-website:
 上記の修正をしてcommitすると、"Setup CI"というworkflowが実行され、完了するとUpptimeが構築されています。
 
 `http://<GitHubユーザ名>.github.io/<リポジトリ名>`にアクセスすると、Upptimeにアクセスできます。
+
+サイト監視については、Upptimeのwebサイトが更新されるだけでなく`README.md`も更新されるので、  
+かっこいいREADMEが勝手に作成されるところも、少し気に入っています。
 
 ### さいごに
 
