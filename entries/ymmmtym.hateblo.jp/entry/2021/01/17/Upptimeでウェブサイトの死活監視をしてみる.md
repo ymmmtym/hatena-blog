@@ -1,5 +1,5 @@
 ---
-Title: Upptimeでウェブサイトの死活監視をしてみる
+Title: GitHubだけでウェブサイトの死活監視ができる【Upptime】を使ってみました
 Category:
 - IT
 - Monitoring
