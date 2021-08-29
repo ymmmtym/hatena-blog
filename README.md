@@ -58,7 +58,11 @@ docker-compose run go blogsync pull ${domain}
 `path`と`domain`変数を設定して、以下のコマンドを実行するとはてなブログとローカルに下書きが追加されます。
 
 ```bash
-docker-compose run go blogsync post --title=draft --draft --custom-path=${path} ${domain} < draft.md
+export TITLE=“リポジトリにある Git Submodule を自動で更新してみた”
+export DOMAIN=“ymmmtym.hatenablog.jp”
+export ENTRY_PATH=$(date '+%Y/%m/%d')/$(echo ${TITLE} | sed -e "s/\ /_/g")
+
+docker-compose run go blogsync post --title=${TITLE} --draft --custom-path=${ENTRY_PATH} ${DOMAIN} < draft.md
 ```
 
 ## 編集した記事の更新
