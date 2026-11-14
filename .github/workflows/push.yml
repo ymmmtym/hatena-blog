@@ -17,10 +17,10 @@ jobs:
       DRAFT: draft.md
     steps:
 
-    - name: Set up Go 1.13
+    - name: Set up Go 1.26
       uses: actions/setup-go@v1
       with:
-        go-version: 1.13
+        go-version: '1.26'
       id: go
 
     - name: Check out code into the Go module directory
@@ -41,7 +41,7 @@ jobs:
 
     - name: Setup blogsync
       run: |
-        go get github.com/motemen/blogsync
+        go install github.com/x-motemen/blogsync@latest
         echo -e ${BSY} > blogsync.yaml
 
     - name: push
